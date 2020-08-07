@@ -142,7 +142,7 @@ mixture <- function(Y = NULL, experts = NULL, model = "MLpol", loss.type = "squa
 mixture.default <- function(Y = NULL, experts = NULL, model = "MLpol", loss.type = "square", 
   loss.gradient = TRUE, coefficients = "Uniform", awake = NULL, parameters = list()) {
   
-  
+  print("hello my love")
   if (!is.list(loss.type)) {
     loss.type <- list(name = loss.type)
   }
