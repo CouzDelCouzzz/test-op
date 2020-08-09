@@ -115,7 +115,7 @@ oracle.default <- function(Y, experts, model = "convex", loss.type = "square", a
     loss.type <- list(name = loss.type)
   }
   if (!(loss.type$name %in% c("pinball", "square", "percentage", "absolute"))) {
-    stop("loss.type should be one of these: 'absolute', 'percentage', 'square', 'pinball'")
+    stop("loss.type should be one of these: 'absolute', 'percentage', 'square', 'pinball' from oracle")
   }
   if (!is.null(loss.type$tau) && loss.type$name != "pinball") {
     warning("Unused parameter tau (loss.type != 'pinball')")
