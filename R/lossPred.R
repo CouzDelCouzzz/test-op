@@ -39,6 +39,10 @@ lossPred <- function(x, y, pred = NULL, loss.type = "square", loss.gradient = FA
         l <- matrix(rep(-log(x), npred), ncol = npred) 
       else if (loss.type$name == "pinball") 
         l <- matrix(rep(((y < x) - loss.type$tau) * (x - y), npred), ncol = npred)
+      else if (loss.type$name == "testQ"){
+         print("In lossPred function, first case with loss gradient=False")
+        l <- matrix(rep((x - y)^2, npred), ncol = npred)        
+      }
     } else {
       if (loss.type$name == "square") 
         l <- 2 * t(matrix(rep(pred - y, nx), ncol = nx)) * matrix(rep(x, npred), ncol = npred) 
@@ -50,6 +54,10 @@ lossPred <- function(x, y, pred = NULL, loss.type = "square", loss.gradient = FA
         l <- 2 * t(matrix(rep(-1/pred, nx), ncol = nx)) * matrix(rep(x, npred), ncol = npred) 
       else if (loss.type$name == "pinball") 
         l <- t(matrix(rep((y < pred) - loss.type$tau, nx), ncol = nx)) * matrix(rep(x, npred), ncol = npred)
+      else if (loss.type$name == "testQ"){
+         print("In lossPred function, first case with loss gradient=True")
+        l <- matrix(rep((x - y)^2, npred), ncol = npred)        
+      }
     }
   } else {
     if (!loss.gradient) {
@@ -63,6 +71,10 @@ lossPred <- function(x, y, pred = NULL, loss.type = "square", loss.gradient = FA
         l <- -log(c(x))
       else if (loss.type$name == "pinball") 
         l <- c((y < x) - loss.type$tau) * c(x - y)
+      else if (loss.type$name == "testQ"){
+         print("In lossPred function, second case with loss gradient=False")
+        l <- matrix(rep((x - y)^2, npred), ncol = npred)        
+      }        
     } else {
       if (loss.type$name == "square") 
         l <- 2 * c(pred - y) * x 
@@ -74,6 +86,10 @@ lossPred <- function(x, y, pred = NULL, loss.type = "square", loss.gradient = FA
         l <- -c(x/pred)
       else if (loss.type$name == "pinball") 
         l <- c((y < pred) - loss.type$tau) * x
+      else if (loss.type$name == "testQ"){
+         print("In lossPred function, second case with loss gradient=True")
+        l <- matrix(rep((x - y)^2, npred), ncol = npred)        
+      }        
     }
   }
   return(l)

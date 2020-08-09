@@ -35,6 +35,6 @@ loss <- function(x, y, loss.type = "square") {
     l <- abs(x - y) else if (loss.type$name == "percentage") 
     l <- abs(x - y)/y else if (loss.type$name == "pinball") 
     l <- (loss.type$tau - (y < x)) * (y - x) else if (loss.type$name == "log") 
-    l <- -log(x) else stop("loss.type should be one of these: 'absolute', 'percentage', 'square', 'pinball'")
+    l <- -log(x) else stop("loss.type should be one of these: 'absolute', 'percentage', 'square', 'pinball' from loss function")
   return(l)
 } 
