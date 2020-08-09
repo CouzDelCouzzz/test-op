@@ -48,6 +48,7 @@
 predict.mixture <- function(object, newexperts = NULL, newY = NULL, awake = NULL, 
                             online = TRUE, type = c("model", "response", "weights", "all"), ...) {
   
+  print("I'm in predict")
   result <- object
   d <- object$d
   if ((d == 1) || (d == "unknown" && is.null(dim(newY)))) {

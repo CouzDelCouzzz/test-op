@@ -1,6 +1,7 @@
 predictReal <- function(object, newexperts = NULL, newY = NULL, awake = NULL, 
                             online = TRUE, type = c("model", "response", "weights", "all"), ...) {
   
+  print("I'm in predictReal")
   type <- match.arg(type)
   
   # Number of instant and number of experts
