@@ -18,7 +18,7 @@
 # by the \code{N} predictions in \code{x}.  @author Pierre Gaillard
 # <pierre@@gaillard.me> @seealso \code{\link{loss}} @keywords ~kwd1 ~kwd2
 lossPred <- function(x, y, pred = NULL, loss.type = "square", loss.gradient = FALSE) {
-  
+  print("i'm in lossPred")
   if (!is.list(loss.type)) {
     loss.type <- list(name = loss.type)
   }
@@ -82,7 +82,7 @@ lossPred <- function(x, y, pred = NULL, loss.type = "square", loss.gradient = FA
         l <- sign(c(pred - y)) * x 
       else if (loss.type$name == "percentage") 
         l <- x/y * sign(c(pred - y))
-      if (loss.type$name == "log") 
+      else if (loss.type$name == "log") 
         l <- -c(x/pred)
       else if (loss.type$name == "pinball") 
         l <- c((y < pred) - loss.type$tau) * x

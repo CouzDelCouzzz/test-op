@@ -146,27 +146,32 @@ mixture.default <- function(Y = NULL, experts = NULL, model = "MLpol", loss.type
   print(loss.type)
   if (!is.list(loss.type)) {
     loss.type <- list(name = loss.type)
+    print("hehe")
   }
   if (!(loss.type$name %in% c("pinball", "square", "percentage", "absolute", "testQ"))) {
     stop("aaaaa loss.type should be one of these: 'absolute', 'percentage', 'square', 'pinball' first entry")
+    print("hoho")
   }
   
-  
+  print("before obj")
   object <- list(model = model, loss.type = loss.type, loss.gradient = loss.gradient, 
     coefficients = coefficients, parameters = parameters, Y = NULL, experts = NULL, 
     awake = NULL, training = NULL, names.experts = colnames(experts), T = 0, d = "unknown")
   
   class(object) <- "mixture"
-  
+  print("after obj")
+ 
   # Test that Y and experts have correct dimensions
   if ((is.null(Y) && !is.null(experts)) || (!is.null(Y) && is.null(experts))) {
     stop("Bad dimensions: length(Y) should be equal to nrow(experts)")
   }
   
+  print("before testing y")
   if (!is.null(Y)) {
-    
+    print("y not null")
     # Test the dimension of Y: if Y is a matrix, the number of columns is the space of prediction
     if (is.null(dim(Y))) {
+      print("dim y null")
       d = 1
       T = length(Y)
     } else {
@@ -206,5 +211,6 @@ mixture.default <- function(Y = NULL, experts = NULL, model = "MLpol", loss.type
       type = "model")
     
   }
+  print("after testing y")
   return(object)
 } 

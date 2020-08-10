@@ -121,8 +121,10 @@ predictReal <- function(object, newexperts = NULL, newY = NULL, awake = NULL,
     }
     
     if (object$model == "MLpol") {
+      print("trying MLpol function")
       newobject <- MLpol(y = newY, experts = newexperts, awake = awake, loss.type = object$loss.type, 
                          loss.gradient = object$loss.gradient, training = object$training)
+      print("trying MLpol function: worked")
       newobject$parameters <- list(eta = rbind(object$parameters$eta, newobject$parameters$eta))
     }
     
@@ -239,6 +241,7 @@ predictReal <- function(object, newexperts = NULL, newY = NULL, awake = NULL,
     newobject$prediction <- rbind(object$prediction, matrix(newpred, ncol = object$d))
     newobject$weights <- rbind(object$weights, newweights)
     rownames(newobject$weights) <- NULL
+    print("Entering loss script")
     newobject$loss <- mean(loss(c(newobject$prediction), c(newobject$Y), loss.type = newobject$loss.type))
     newobject$T <- object$T + T/object$d
     newobject$d <- object$d

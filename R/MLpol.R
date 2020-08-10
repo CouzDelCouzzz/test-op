@@ -1,6 +1,7 @@
 MLpol <- function(y, experts, awake = NULL, loss.type = "square", loss.gradient = TRUE, 
   training = NULL) {
   
+  print("In MLP function")
   experts <- as.matrix(experts)
   N <- ncol(experts)
   T <- nrow(experts)
@@ -27,7 +28,7 @@ MLpol <- function(y, experts, awake = NULL, loss.type = "square", loss.gradient 
   } else {
     training <- list(eta = eta[1, ])
   }
-  
+  print(T)
   for (t in 1:T) {
     # We check if there is at least one expert with positive weight
     if (max(awake[t, ] * R) > 0) {

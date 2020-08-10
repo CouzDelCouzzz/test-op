@@ -22,7 +22,7 @@
 #' @author Pierre Gaillard <pierre@@gaillard.me>
 #' @export loss
 loss <- function(x, y, loss.type = "square") {
-  
+  print("i'm in lost")
   if (!is.list(loss.type)) {
     loss.type <- list(name = loss.type)
   }
@@ -35,6 +35,14 @@ loss <- function(x, y, loss.type = "square") {
     l <- abs(x - y) else if (loss.type$name == "percentage") 
     l <- abs(x - y)/y else if (loss.type$name == "pinball") 
     l <- (loss.type$tau - (y < x)) * (y - x) else if (loss.type$name == "log") 
-    l <- -log(x) else stop("tttt loss.type should be one of these: 'absolute', 'percentage', 'square', 'pinball' from loss function")
+    l <- -log(x) else if(loss.type$name == "testQ"){
+      print("I'm in BABY -- loss")
+      if(y < 0) {l <- (-(x-y))
+                print("y < 0")}
+      else {l <- (x-y)
+          print("y >= 0")}
+    }
+    else
+      stop("tttt loss.type should be one of these: 'absolute', 'percentage', 'square', 'pinball' from loss function")
   return(l)
 } 
