@@ -148,7 +148,7 @@ mixture.default <- function(Y = NULL, experts = NULL, model = "MLpol", loss.type
     loss.type <- list(name = loss.type)
     print("hehe")
   }
-  if (!(loss.type$name %in% c("pinball", "square", "percentage", "absolute", "testQ"))) {
+  if (!(loss.type$name %in% c("pinball", "square", "percentage", "absolute", "linexNeg", "linexPos", "linexNeg2", "linexPos2"))) {
     stop("aaaaa loss.type should be one of these: 'absolute', 'percentage', 'square', 'pinball' first entry")
     print("hoho")
   }

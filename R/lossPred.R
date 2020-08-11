@@ -39,9 +39,14 @@ lossPred <- function(x, y, pred = NULL, loss.type = "square", loss.gradient = FA
         l <- matrix(rep(-log(x), npred), ncol = npred) 
       else if (loss.type$name == "pinball") 
         l <- matrix(rep(((y < x) - loss.type$tau) * (x - y), npred), ncol = npred)
-      else if (loss.type$name == "testQ"){
-         print("In lossPred function, first case with loss gradient=False")
-        l <- matrix(rep((x - y)^2, npred), ncol = npred)        
+      else if(loss.type$name == "linexNeg"){
+        l <- matrix(rep(exp(-(x-y)) + (x-y) - 1), npred), ncol = npred)
+      } else if(loss.type$name == "linexPos"){
+        l <- matrix(rep(exp((x-y)) - (x-y) - 1), npred), ncol = npred)
+      } else if(loss.type$name == "linexNeg2"){
+        l <- matrix(rep(exp(-(x-y)) + (x-y)^2 - 1), npred), ncol = npred)
+      } else if(loss.type$name == "linexPos2"){
+        l <- matrix(rep(exp((x-y)) + (x-y)^2 - 1), npred), ncol = npred)
       }
     } else {
       if (loss.type$name == "square") 
@@ -71,10 +76,19 @@ lossPred <- function(x, y, pred = NULL, loss.type = "square", loss.gradient = FA
         l <- -log(c(x))
       else if (loss.type$name == "pinball") 
         l <- c((y < x) - loss.type$tau) * c(x - y)
-      else if (loss.type$name == "testQ"){
-         print("In lossPred function, second case with loss gradient=False")
-        l <- matrix(rep((x - y)^2, npred), ncol = npred)        
-      }        
+      else if(loss.type$name == "linexNeg"){
+        error <- c(x-y)
+        l <- exp(-error) + error -1)
+      } else if(loss.type$name == "linexPos"){
+        error <- c(x-y)
+        l <- exp(error) - error -1)
+      } else if(loss.type$name == "linexNeg2"){
+        error <- c(x-y)
+        l <- exp(-error) + (error^2) -1)
+      } else if(loss.type$name == "linexPos2"){
+        error <- c(x-y)
+        l <- exp(error) + (error^2) -1)}
+      
     } else {
       if (loss.type$name == "square") 
         l <- 2 * c(pred - y) * x 
@@ -86,10 +100,23 @@ lossPred <- function(x, y, pred = NULL, loss.type = "square", loss.gradient = FA
         l <- -c(x/pred)
       else if (loss.type$name == "pinball") 
         l <- c((y < pred) - loss.type$tau) * x
-      else if (loss.type$name == "testQ"){
-         print("In lossPred function, second case with loss gradient=True")
-        l <- matrix(rep((x - y)^2, npred), ncol = npred)        
-      }        
+      
+      else if(loss.type$name == "linexNeg"){
+        error <- c(pred-y)
+        l <- exp(-error) + error -1)
+
+
+
+
+      } else if(loss.type$name == "linexPos"){
+        error <- c(x-y)
+        l <- exp(error) - error -1)
+      } else if(loss.type$name == "linexNeg2"){
+        error <- c(x-y)
+        l <- exp(-error) + (error^2) -1)
+      } else if(loss.type$name == "linexPos2"){
+        error <- c(x-y)
+        l <- exp(error) + (error^2) -1)}      
     }
   }
   return(l)

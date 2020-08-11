@@ -35,12 +35,18 @@ loss <- function(x, y, loss.type = "square") {
     l <- abs(x - y) else if (loss.type$name == "percentage") 
     l <- abs(x - y)/y else if (loss.type$name == "pinball") 
     l <- (loss.type$tau - (y < x)) * (y - x) else if (loss.type$name == "log") 
-    l <- -log(x) else if(loss.type$name == "testQ"){
-      print("I'm in BABY -- loss")
-      if(y < 0) {l <- (-(x-y))
-                print("y < 0")}
-      else {l <- (x-y)
-          print("y >= 0")}
+    l <- -log(x) else if(loss.type$name == "linexNeg"){
+        error <- (x-y)
+        l <- exp(-error) + error - 1
+    } else if(loss.type$name == "linexPos"){
+      error <- (x-y)
+      l <- exp(error) - error - 1
+    } else if(loss.type$name == "linexNeg2"){
+      error <- (x-y)
+      l <- exp(-error) + (error^2) - 1
+    } else if(loss.type$name == "linexPos2"){
+      error <- (x-y)
+      l <- exp(error) + (error^2) - 1
     }
     else
       stop("tttt loss.type should be one of these: 'absolute', 'percentage', 'square', 'pinball' from loss function")
